@@ -23,8 +23,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 font-bold text-xl text-orange-600">
-            <Heart className="w-6 h-6" />
-            <span>Spreading Smiles</span>
+            <img src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1777325805/541062d9-c6be-428e-8cbd-f8b917fd1e03.png" alt="Spreading Smiles"  className="h-11 w-11 object-contain"/>
           </Link>
 
           {/* Desktop Navigation */}

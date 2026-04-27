@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, Heart, Check } from "lucide-react";
 import { toast } from "sonner";
+import { apiUrl } from "@/lib/api-url";
 
 declare global {
   interface Window {
@@ -60,7 +61,7 @@ export default function Donate() {
         throw new Error("Razorpay checkout could not load. Please try again.");
       }
 
-      const orderResponse = await fetch("/api/donate/create-order", {
+      const orderResponse = await fetch(apiUrl("/donate/create-order"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, amount, message }),
@@ -90,7 +91,7 @@ export default function Donate() {
         },
         handler: async (payment: any) => {
           try {
-            const verifyResponse = await fetch("/api/donate/verify-payment", {
+            const verifyResponse = await fetch(apiUrl("/donate/verify-payment"), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

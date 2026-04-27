@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Heart, Clock, Users, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { apiUrl } from "@/lib/api-url";
 
 const perks = [
   { icon: Heart, title: "Real Impact", desc: "See direct change in your city, every week." },
@@ -28,7 +29,7 @@ export default function Volunteer() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/volunteer", {
+      const response = await fetch(apiUrl("/volunteer"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

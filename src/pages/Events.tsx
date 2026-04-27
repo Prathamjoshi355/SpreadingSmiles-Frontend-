@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarDays, MapPin, Users } from "lucide-react";
+import { apiUrl } from "@/lib/api-url";
 
 type Activity = {
   _id: string;
@@ -21,7 +22,7 @@ export default function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("/api/activity");
+        const response = await fetch(apiUrl("/activity"));
         if (!response.ok) return;
 
         const result = await response.json();

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { CalendarDays, User } from 'lucide-react';
+import { apiUrl } from '@/lib/api-url';
 
 type Blog = {
   title: string;
@@ -20,7 +21,7 @@ export default function BlogPostPage() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`/api/blog/${slug}`);
+        const response = await fetch(apiUrl(`/blog/${slug}`));
         if (!response.ok) return;
 
         const result = await response.json();

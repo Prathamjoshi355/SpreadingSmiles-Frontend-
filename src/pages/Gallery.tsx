@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
+import { apiUrl } from "@/lib/api-url";
 
 const fallbackImages = [
   { src: "https://mgx-backend-cdn.metadl.com/generate/images/923119/2026-04-25/nj6cuhaaafla/hero-volunteers-community.png", alt: "Volunteers with community" },
@@ -16,7 +17,7 @@ export default function Gallery() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("/api/gallery");
+        const response = await fetch(apiUrl("/gallery"));
         if (!response.ok) return;
 
         const result = await response.json();

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { CalendarDays, User } from 'lucide-react';
+import { apiUrl } from '@/lib/api-url';
 
 type Blog = {
   _id: string;
@@ -22,7 +23,7 @@ export default function BlogIndexPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('/api/blog');
+        const response = await fetch(apiUrl('/blog'));
         if (!response.ok) return;
 
         const result = await response.json();

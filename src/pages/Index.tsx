@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -13,13 +14,14 @@ import {
   ArrowRight,
   HandHeart,
 } from "lucide-react";
+import { apiUrl } from "@/lib/api-url";
 
 const heroImage =
   "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778003131/Post_one_yrcaeg.jpg";
 const childrenImage =
-  "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004129/post4_r13k3g.jpg"; 
+  "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004129/post4_r13k3g.jpg";  
   
-
+  
 const categories = [
   { icon: HeartPulse, title: "Healthcare", desc: "Medical aid & blood drives" },
   { icon: PawPrint, title: "Animal Welfare", desc: "Feed, rescue & treat strays" },
@@ -30,14 +32,33 @@ const categories = [
   { icon: Baby, title: "Child Welfare", desc: "Orphanage support" },
 ];
 
-const stats = [
-  { value: "Rs 76,000+", label: "Raised for medical support" },
-  { value: "300+", label: "Social activities conducted" },
-  { value: "15+", label: "Awareness campaigns" },
-  { value: "100+", label: "Active volunteers" },
+const defaultStats = [
+  { value: "Loading...", label: "Raised for medical support" },
+  { value: "Loading...", label: "Social activities conducted" },
+  { value: "Loading...", label: "Awareness campaigns" },
+  { value: "Loading...", label: "Active volunteers" },
 ];
 
 export default function Index() {
+  const [stats, setStats] = useState(defaultStats);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const response = await fetch(apiUrl('/impact-stats'));
+        const result = await response.json();
+
+        if (response.ok && result.data?.stats?.length) {
+          setStats(result.data.stats);
+        }
+      } catch (error) {
+        console.error('Unable to load impact stats:', error);
+      }
+    };
+
+    loadStats();
+  }, []);
+
   return (
     <Layout>
       <section className="relative min-h-[600px] flex items-center overflow-hidden">

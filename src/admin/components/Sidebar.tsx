@@ -8,6 +8,7 @@ export default function Sidebar() {
     { label: 'Blogs', icon: BookOpen, path: '/admin/blogs' },
     { label: 'Gallery', icon: Image, path: '/admin/gallery' },
     { label: 'Analytics', icon: LineChart, path: '/admin/analytics' },
+    { label: 'Impact Stats', icon: BarChart3, path: '/admin/impact-stats' },
     { label: 'Donations', icon: Gift, path: '/admin/donations' },
     { label: 'Volunteers', icon: Users, path: '/admin/volunteers' }
   ];

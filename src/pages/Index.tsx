@@ -15,9 +15,10 @@ import {
 } from "lucide-react";
 
 const heroImage =
-  "https://mgx-backend-cdn.metadl.com/generate/images/923119/2026-04-25/nj6cuhaaafla/hero-volunteers-community.png";
+  "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778003131/Post_one_yrcaeg.jpg";
 const childrenImage =
-  "https://mgx-backend-cdn.metadl.com/generate/images/923119/2026-04-25/nj6ctoaaafmq/impact-children.png";
+  "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004129/post4_r13k3g.jpg"; 
+  
 
 const categories = [
   { icon: HeartPulse, title: "Healthcare", desc: "Medical aid & blood drives" },
@@ -152,8 +153,10 @@ export default function Index() {
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
+            <div className="rounded-xl overflow-hidden shadow-xl">
+              
               <img src={childrenImage} alt="Children receiving support" className="w-full h-full object-cover" />
+              
             </div>
             <div>
               <span className="text-orange-600 font-semibold text-sm tracking-wide uppercase">Join Us</span>

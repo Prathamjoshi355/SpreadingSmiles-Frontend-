@@ -1,18 +1,45 @@
-import Layout from "@/components/Layout";
-import { Card, CardContent } from "@/components/ui/card";
-import { TrendingUp, Activity, Megaphone, Users } from "lucide-react";
+import { useEffect, useState } from 'react';
+import Layout from '@/components/Layout';
+import { Card, CardContent } from '@/components/ui/card';
+import { TrendingUp, Activity, Megaphone, Users } from 'lucide-react';
+import { apiUrl } from '@/lib/api-url';
 
 const healthcareImage =
-  "https://mgx-backend-cdn.metadl.com/generate/images/923119/2026-04-25/nj6c5eiaafna/impact-healthcare.png";
+  'https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004706/post6_fhdcvp.jpg';
 
-const stats = [
-  { icon: TrendingUp, value: "Rs 76,000+", label: "Raised for medical support" },
-  { icon: Activity, value: "300+", label: "Social activities conducted" },
-  { icon: Megaphone, value: "15+", label: "Awareness campaigns executed" },
-  { icon: Users, value: "100+", label: "Active volunteers across Indore" },
+const iconMap: Record<string, any> = {
+  TrendingUp,
+  Activity,
+  Megaphone,
+  Users
+};
+
+const defaultStats = [
+  { key: 'raised', icon: 'TrendingUp', value: 'Rs 76,000+', label: 'Raised for medical support' },
+  { key: 'activities', icon: 'Activity', value: '300+', label: 'Social activities conducted' },
+  { key: 'campaigns', icon: 'Megaphone', value: '15+', label: 'Awareness campaigns executed' },
+  { key: 'volunteers', icon: 'Users', value: '100+', label: 'Active volunteers across Indore' }
 ];
 
 export default function Impact() {
+  const [stats, setStats] = useState(defaultStats);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const response = await fetch(apiUrl('/impact-stats'));
+        const result = await response.json();
+        if (response.ok && result.data?.stats?.length) {
+          setStats(result.data.stats);
+        }
+      } catch (error) {
+        console.error('Unable to load impact stats:', error);
+      }
+    };
+
+    loadStats();
+  }, []);
+
   return (
     <Layout>
       <section className="bg-gradient-to-br from-orange-50 to-amber-50 py-16 md:py-20">
@@ -30,17 +57,20 @@ export default function Impact() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-            {stats.map((s, i) => (
-              <Card key={i} className="border-orange-100 text-center">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-4">
-                    <s.icon className="w-7 h-7 text-orange-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-slate-900 mb-1">{s.value}</div>
-                  <div className="text-sm text-slate-600">{s.label}</div>
-                </CardContent>
-              </Card>
-            ))}
+            {stats.map((s, i) => {
+              const Icon = iconMap[s.icon] || TrendingUp;
+              return (
+                <Card key={s.key || i} className="border-orange-100 text-center">
+                  <CardContent className="p-6">
+                    <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-7 h-7 text-orange-600" />
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900 mb-1">{s.value}</div>
+                    <div className="text-sm text-slate-600">{s.label}</div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>

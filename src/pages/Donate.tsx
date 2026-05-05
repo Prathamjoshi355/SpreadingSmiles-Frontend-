@@ -27,7 +27,17 @@ export default function Donate() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bankInfo, setBankInfo] = useState<null | {
+    accountName: string;
+    accountNumber: string;
+    ifsc: string;
+    bank: string;
+    branch: string;
+    upi: string;
+  }>(null);
 
+  // Razorpay code is preserved below but not active; current flow uses bank transfer details.
+  /*
   const loadRazorpay = () =>
     new Promise<boolean>((resolve) => {
       if (window.Razorpay) {
@@ -41,6 +51,7 @@ export default function Donate() {
       script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
+  */
 
   const handleDonate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,84 +66,31 @@ export default function Donate() {
     }
 
     setIsSubmitting(true);
+    setBankInfo(null);
+
     try {
-      const scriptLoaded = await loadRazorpay();
-      if (!scriptLoaded || !window.Razorpay) {
-        throw new Error("Razorpay checkout could not load. Please try again.");
-      }
-
-      const orderResponse = await fetch(apiUrl("/donate/create-order"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, amount, message }),
+      const response = await fetch(apiUrl('/donate/bank-transfer'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, amount, message })
       });
 
-      const order = await orderResponse.json();
-      if (!orderResponse.ok) {
-        throw new Error(order.message || "Unable to start payment");
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Unable to submit donation request');
       }
 
-      const checkout = new window.Razorpay({
-        key: order.key,
-        amount: order.amount,
-        currency: "INR",
-        name: "Spreading Smiles",
-        description: `Donation of Rs ${amount}`,
-        order_id: order.orderId,
-        prefill: {
-          name,
-          email,
-        },
-        notes: {
-          message,
-        },
-        theme: {
-          color: "#ea580c",
-        },
-        handler: async (payment: any) => {
-          try {
-            const verifyResponse = await fetch(apiUrl("/donate/verify-payment"), {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                ...payment,
-                name,
-                email,
-                amount,
-                message,
-              }),
-            });
-
-            const verified = await verifyResponse.json();
-            if (!verifyResponse.ok) {
-              throw new Error(verified.message || "Payment verification failed");
-            }
-
-            toast.success(`Thank you ${name}! Payment verified and donation recorded.`);
-            setCustom("");
-            setSelected(1000);
-            setName("");
-            setEmail("");
-            setMessage("");
-          } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : "Payment verification failed";
-            toast.error(errorMessage);
-          } finally {
-            setIsSubmitting(false);
-          }
-        },
-        modal: {
-          ondismiss: () => {
-            toast.error("Payment was cancelled. Donation was not recorded.");
-            setIsSubmitting(false);
-          },
-        },
-      });
-
-      checkout.open();
+      setBankInfo(result.data.bankInfo);
+      toast.success('Donation request received. Complete the transfer using the bank details below.');
+      setCustom('');
+      setSelected(1000);
+      setName('');
+      setEmail('');
+      setMessage('');
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Unable to submit donation";
+      const errorMessage = error instanceof Error ? error.message : 'Unable to submit donation request';
       toast.error(errorMessage);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -208,7 +166,7 @@ export default function Donate() {
 
                   <Button type="submit" size="lg" className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold" disabled={isSubmitting}>
                     <Heart className="w-4 h-4 mr-2 fill-white" />
-                    {isSubmitting ? "Opening payment..." : `Donate Rs ${custom || selected}`}
+                    {isSubmitting ? 'Submitting...' : `Donate Rs ${custom || selected}`}
                   </Button>
 
                   <div className="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500">
@@ -218,6 +176,41 @@ export default function Donate() {
                 </CardContent>
               </Card>
             </form>
+
+            {bankInfo && (
+              <div className="mt-8 rounded-2xl border border-orange-200 bg-orange-50 p-6">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">NGO Bank Details</h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">Account Name</p>
+                    <p className="text-slate-900">{bankInfo.accountName}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">Account Number</p>
+                    <p className="text-slate-900">{bankInfo.accountNumber}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">IFSC</p>
+                    <p className="text-slate-900">{bankInfo.ifsc}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">Branch</p>
+                    <p className="text-slate-900">{bankInfo.branch}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">Bank</p>
+                    <p className="text-slate-900">{bankInfo.bank}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">UPI</p>
+                    <p className="text-slate-900">{bankInfo.upi}</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-slate-700">
+                  Once the transfer is complete, the admin can approve the donation and update the NGO records.
+                </p>
+              </div>
+            )}
 
             <div className="mt-8 grid sm:grid-cols-3 gap-3 text-sm">
               {["100% Transparent", "Tax Receipt Available", "Real Impact Reports"].map((t) => (

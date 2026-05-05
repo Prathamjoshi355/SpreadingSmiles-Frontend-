@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Users, Target, Sparkles } from "lucide-react";
 
 const teamImage =
-  "https://mgx-backend-cdn.metadl.com/generate/images/923119/2026-04-25/nj6ct6qaafnq/about-team-group.png";
+  "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004401/post5_tcrmsu.jpg";
 
 export default function About() {
   return (

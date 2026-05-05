@@ -1,9 +1,10 @@
 import { Trash2 } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 interface Column {
   key: string;
   label: string;
-  render?: (value: any) => string | ReactNode;
+  render?: (value: any, row: any) => string | ReactNode;
 }
 
 interface DataTableProps {
@@ -34,7 +35,7 @@ export default function DataTable({ columns, data, onDelete }: DataTableProps) {
             <tr key={idx} className="border-b hover:bg-gray-50">
               {columns.map((column) => (
                 <td key={column.key} className="px-6 py-4 text-sm text-gray-700">
-                  {column.render ? column.render(row[column.key]) : row[column.key]}
+                      {column.render ? column.render(row[column.key], row) : row[column.key]}
                 </td>
               ))}
               {onDelete && (

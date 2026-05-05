@@ -71,6 +71,19 @@ export const adminApi = {
   getDonationStats: () =>
     axios.get(`${API_BASE_URL}/donate/stats`, { headers: getAuthHeader() }),
 
+  updateDonationStatus: (id, data) =>
+    axios.put(`${API_BASE_URL}/donate/${id}`, data, { headers: getAuthHeader() }),
+
+  createManualDonation: (data) =>
+    axios.post(`${API_BASE_URL}/donate/manual`, data, { headers: getAuthHeader() }),
+
+  // Impact stats
+  getImpactStats: () =>
+    axios.get(`${API_BASE_URL}/impact-stats`),
+
+  updateImpactStats: (data) =>
+    axios.put(`${API_BASE_URL}/impact-stats`, data, { headers: getAuthHeader() }),
+
   // Volunteers
   getAllVolunteers: () =>
     axios.get(`${API_BASE_URL}/volunteer`, { headers: getAuthHeader() }),

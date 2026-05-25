@@ -4,8 +4,17 @@ import DataTable from '../components/DataTable';
 
 const categories = ['education', 'health', 'environment', 'community', 'disaster-relief', 'other'];
 
+type Activity = {
+  _id: string;
+  title: string;
+  category: string;
+  date: string;
+  location?: string;
+  volunteers?: number;
+};
+
 export default function ActivitiesPage() {
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('community');
@@ -16,6 +25,7 @@ export default function ActivitiesPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
   const fetchActivities = async () => {
     try {
@@ -93,6 +103,9 @@ export default function ActivitiesPage() {
     { key: 'location', label: 'Location' },
     { key: 'volunteers', label: 'Volunteers' }
   ];
+  const filteredActivities = filterDate
+    ? activities.filter((activity) => activity.date.slice(0, 10) === filterDate)
+    : activities;
 
   return (
     <div>
@@ -173,7 +186,28 @@ export default function ActivitiesPage() {
         {error && <div className="mt-4 text-red-600">{error}</div>}
       </form>
 
-      {loading ? <div>Loading...</div> : <DataTable columns={columns} data={activities} onDelete={handleDelete} />}
+      <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col sm:flex-row gap-3 sm:items-end">
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">Filter by Date</label>
+          <input
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+          />
+        </div>
+        {filterDate && (
+          <button
+            type="button"
+            onClick={() => setFilterDate('')}
+            className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+          >
+            Clear Filter
+          </button>
+        )}
+      </div>
+
+      {loading ? <div>Loading...</div> : <DataTable columns={columns} data={filteredActivities} onDelete={handleDelete} />}
     </div>
   );
 }

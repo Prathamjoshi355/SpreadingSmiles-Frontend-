@@ -84,6 +84,20 @@ export const adminApi = {
   updateImpactStats: (data) =>
     axios.put(`${API_BASE_URL}/impact-stats`, data, { headers: getAuthHeader() }),
 
+  // Hero Slider
+  getHeroSlides: () =>
+    axios.get(`${API_BASE_URL}/hero-slider`),
+
+  updateHeroSlides: (data) =>
+    axios.put(`${API_BASE_URL}/hero-slider`, data, { headers: getAuthHeader() }),
+
+  // Ticker Items
+  getTickerItems: () =>
+    axios.get(`${API_BASE_URL}/ticker-items`),
+
+  updateTickerItems: (data) =>
+    axios.put(`${API_BASE_URL}/ticker-items`, data, { headers: getAuthHeader() }),
+
   // Volunteers
   getAllVolunteers: () =>
     axios.get(`${API_BASE_URL}/volunteer`, { headers: getAuthHeader() }),

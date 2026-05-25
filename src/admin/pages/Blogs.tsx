@@ -3,10 +3,21 @@ import { Link } from 'react-router-dom';
 import DataTable from '../components/DataTable';
 import { adminApi } from '../services/adminApi';
 import { Plus } from 'lucide-react';
+import { blogDomains, type BlogDomain } from '@/lib/blog-domains';
+
+type Blog = {
+  _id: string;
+  title: string;
+  slug: string;
+  domains?: BlogDomain[];
+  createdAt: string;
+};
 
 export default function BlogsPage() {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [savingId, setSavingId] = useState<string | null>(null);
+  const [draftDomains, setDraftDomains] = useState<Record<string, BlogDomain[]>>({});
 
   useEffect(() => {
     fetchBlogs();
@@ -15,11 +26,37 @@ export default function BlogsPage() {
   const fetchBlogs = async () => {
     try {
       const response = await adminApi.getAllBlogs();
-      setBlogs(response.data.data);
+      const loadedBlogs = response.data.data || [];
+      setBlogs(loadedBlogs);
+      setDraftDomains(
+        Object.fromEntries(loadedBlogs.map((blog: Blog) => [blog._id, blog.domains || []]))
+      );
     } catch (error) {
       console.error('Error fetching blogs:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveDomains = async (blog: Blog) => {
+    const selectedDomains = draftDomains[blog._id] || [];
+
+    if (selectedDomains.length === 0) {
+      window.alert('Please select at least one domain.');
+      return;
+    }
+
+    const data = new FormData();
+    data.append('domains', JSON.stringify(selectedDomains));
+
+    setSavingId(blog._id);
+    try {
+      await adminApi.updateBlog(blog._id, data);
+      await fetchBlogs();
+    } catch (error) {
+      console.error('Error updating blog domains:', error);
+    } finally {
+      setSavingId(null);
     }
   };
 
@@ -39,6 +76,40 @@ export default function BlogsPage() {
   const columns = [
     { key: 'title', label: 'Title' },
     { key: 'slug', label: 'Slug' },
+    {
+      key: 'domains',
+      label: 'Domains',
+      render: (_domains: BlogDomain[] = [], blog: Blog) => (
+        <div className="min-w-[190px] space-y-2">
+          <select
+            multiple
+            size={4}
+            value={draftDomains[blog._id] || []}
+            onChange={(e) =>
+              setDraftDomains((current) => ({
+                ...current,
+                [blog._id]: Array.from(e.target.selectedOptions, (option) => option.value as BlogDomain)
+              }))
+            }
+            className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+          >
+            {blogDomains.map((domain) => (
+              <option key={domain.value} value={domain.value}>
+                {domain.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            disabled={savingId === blog._id}
+            onClick={() => handleSaveDomains(blog)}
+            className="text-sm bg-blue-600 hover:bg-blue-700 text-white rounded px-3 py-1 disabled:opacity-50"
+          >
+            {savingId === blog._id ? 'Saving...' : 'Save Domains'}
+          </button>
+        </div>
+      )
+    },
     {
       key: 'createdAt',
       label: 'Created',

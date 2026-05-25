@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import { BarChart3, BookOpen, Image, Gift, Users, Home, LineChart } from 'lucide-react';
+import { BarChart3, BookOpen, Image, Gift, Users, Home, LineChart, Zap, Megaphone } from 'lucide-react';
 
 export default function Sidebar() {
   const menuItems = [
     { label: 'Dashboard', icon: Home, path: '/admin' },
+    { label: 'Hero Slider', icon: Zap, path: '/admin/hero-slider' },
+    { label: 'Ticker Items', icon: Megaphone, path: '/admin/ticker-items' },
     { label: 'Activities', icon: BarChart3, path: '/admin/activities' },
     { label: 'Blogs', icon: BookOpen, path: '/admin/blogs' },
     { label: 'Gallery', icon: Image, path: '/admin/gallery' },

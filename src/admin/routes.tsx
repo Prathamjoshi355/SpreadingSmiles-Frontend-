@@ -10,6 +10,8 @@ import Gallery from './pages/Gallery';
 import Analytics from './pages/Analytics';
 import Activities from './pages/Activities';
 import ImpactStats from './pages/ImpactStats';
+import HeroSlider from './pages/HeroSlider';
+import TickerItems from './pages/TickerItems';
 import AdminLayout from './components/AdminLayout';
 
 export const adminRoutes: RouteObject[] = [
@@ -52,6 +54,14 @@ export const adminRoutes: RouteObject[] = [
       {
         path: 'impact-stats',
         element: <ImpactStats />
+      },
+      {
+        path: 'hero-slider',
+        element: <HeroSlider />
+      },
+      {
+        path: 'ticker-items',
+        element: <TickerItems />
       },
       {
         path: 'donations',

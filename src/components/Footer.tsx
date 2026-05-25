@@ -17,7 +17,7 @@ export default function Footer() {
               Indore Educated Youth Organization dedicated to making a difference in our community.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition">
+              <a href="https://www.instagram.com/spreadingsmiles_indore?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="text-gray-400 hover:text-orange-400 transition">
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="#" className="text-gray-400 hover:text-orange-400 transition">
@@ -103,8 +103,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <a href="tel:+919876543210" className="hover:text-orange-400 transition">
-                  +91 98765 43210
+                <a href="tel:+917223998881" className="hover:text-orange-400 transition">
+                  +91 72239 98881
                 </a>
               </li>
               <li className="flex items-center space-x-2">
@@ -124,15 +124,7 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               (c) 2026 Spreading Smiles. All rights reserved. | Indore Educated Youth Organization
             </p>
-            <div className="flex space-x-6 text-sm text-gray-400 mt-4 md:mt-0">
-              <a href="#" className="hover:text-orange-400 transition">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-orange-400 transition">
-                Terms of Service
-              </a>
-            </div>
-          </div>
+         </div>
         </div>
       </div>
     </footer>

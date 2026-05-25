@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { adminApi } from '../services/adminApi';
+import { blogDomains, type BlogDomain } from '@/lib/blog-domains';
 
 export default function AddBlogPage() {
   const [title, setTitle] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [author, setAuthor] = useState('NGO');
   const [content, setContent] = useState('');
+  const [domains, setDomains] = useState<BlogDomain[]>([]);
   const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -16,8 +18,8 @@ export default function AddBlogPage() {
     e.preventDefault();
     setError('');
 
-    if (!title || !content || !image) {
-      setError('Please fill title, content, and cover image');
+    if (!title || !content || !image || domains.length === 0) {
+      setError('Please fill title, content, cover image, and select at least one domain');
       return;
     }
 
@@ -26,6 +28,7 @@ export default function AddBlogPage() {
     data.append('excerpt', excerpt);
     data.append('author', author);
     data.append('content', content);
+    data.append('domains', JSON.stringify(domains));
     data.append('image', image);
 
     setSubmitting(true);
@@ -77,6 +80,26 @@ export default function AddBlogPage() {
             maxLength={500}
             rows={3}
           />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">Domains</label>
+          <select
+            multiple
+            size={5}
+            value={domains}
+            onChange={(e) =>
+              setDomains(Array.from(e.target.selectedOptions, (option) => option.value as BlogDomain))
+            }
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+          >
+            {blogDomains.map((domain) => (
+              <option key={domain.value} value={domain.value}>
+                {domain.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-2 text-sm text-gray-500">Select one or more domains for this blog.</p>
         </div>
 
         <div className="mb-4">

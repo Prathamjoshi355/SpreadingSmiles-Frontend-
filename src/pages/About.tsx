@@ -58,7 +58,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-orange-50 to-amber-50 py-16 md:py-20">
+      <section className="bg-gradient-to-br from-orange-50 to-amber-50 py-16">
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <span className="text-orange-600 font-semibold text-sm tracking-wide uppercase">About Us</span>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mt-2 mb-4">
@@ -67,54 +67,7 @@ export default function About() {
           <p className="text-slate-600 text-lg italic">"Indore Educated Youth Organization"</p>
         </div>
       </section>
-
-      {/* Story */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img src={teamImage} alt="Spreading Smiles team" className="w-full h-full object-cover" />
-            </div>
-            <div className="space-y-5 text-slate-700 leading-relaxed">
-              <p>
-                <strong className="text-slate-900">Spreading Smiles</strong> is a registered
-                nonprofit organization based in Indore, working towards building a better
-                and more compassionate society.
-              </p>
-              <p>
-                Founded by <strong className="text-slate-900">Rahul Lodwal</strong>, the
-                organization brings together educated youth to contribute towards meaningful
-                social change.
-              </p>
-              <p>
-                From healthcare support to environmental campaigns, the organization
-                actively works on multiple social issues with a hands-on approach.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission / People / Approach cards */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {cards.map(({ icon: Icon, title, desc }, i) => (
-              <div key={i} className="about-card group relative rounded-2xl border border-orange-100 bg-white p-6 cursor-default">
-                <div className="about-card-bg" />
-                <div className="about-card-icon w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center mb-4 relative z-10">
-                  <Icon className="w-6 h-6 text-orange-600 about-card-svg" />
-                </div>
-                <h3 className="about-card-title font-bold text-slate-900 text-lg mb-2 relative z-10">{title}</h3>
-                <p className="about-card-desc text-slate-600 text-sm leading-relaxed relative z-10">{desc}</p>
-                <div className="about-card-line" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Founders / Team Section ── */}
+       {/* ── Founders / Team Section ── */}
       <section className="py-16 md:py-20" style={{ background: "#fafaf8" }}>
         <div className="container mx-auto px-4">
           {/* Heading */}
@@ -166,6 +119,54 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Story */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img src={teamImage} alt="Spreading Smiles team" className="w-full h-full object-cover" />
+            </div>
+            <div className="space-y-5 text-slate-700 leading-relaxed">
+              <p>
+                <strong className="text-slate-900">Spreading Smiles</strong> is a registered
+                nonprofit organization based in Indore, working towards building a better
+                and more compassionate society.
+              </p>
+              <p>
+                Founded by <strong className="text-slate-900">Rahul Lodwal</strong>, the
+                organization brings together educated youth to contribute towards meaningful
+                social change.
+              </p>
+              <p>
+                From healthcare support to environmental campaigns, the organization
+                actively works on multiple social issues with a hands-on approach.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission / People / Approach cards */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {cards.map(({ icon: Icon, title, desc }, i) => (
+              <div key={i} className="about-card group relative rounded-2xl border border-orange-100 bg-white p-6 cursor-default">
+                <div className="about-card-bg" />
+                <div className="about-card-icon w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center mb-4 relative z-10">
+                  <Icon className="w-6 h-6 text-orange-600 about-card-svg" />
+                </div>
+                <h3 className="about-card-title font-bold text-slate-900 text-lg mb-2 relative z-10">{title}</h3>
+                <p className="about-card-desc text-slate-600 text-sm leading-relaxed relative z-10">{desc}</p>
+                <div className="about-card-line" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+     
 
       <style>{`
         /* ── About cards ── */

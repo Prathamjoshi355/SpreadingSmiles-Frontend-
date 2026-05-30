@@ -401,7 +401,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 }
 
 // ─── Page Data ───────────────────────────────────────────────────────────────
-const childrenImage = "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004129/post4_r13k3g.jpg";
+const childrenImage = "https://res.cloudinary.com/dhy9pmo8s/image/upload/v1780147190/IMG_0422.JPG_tsaehl.jpg";
 
 const categories = [
   { domain: "healthcare", icon: HeartPulse,    title: "Healthcare",     desc: "Medical aid & blood drives" },
@@ -506,11 +506,17 @@ export default function Index() {
             </div>
             <div>
               <span className="text-orange-600 font-semibold text-sm tracking-wide uppercase">Join Us</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4">Every Smile Starts With You.</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4">BE THE REASON SOMEONE BELIEVES IN THEIR DREAMS.</h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                Whether you give your time, skills, or support, your contribution creates real
-                impact in real lives. No experience needed. Just willingness to help.
+               Join Spreading Smiles in our mission to recognize talent, encourage education, and celebrate student achievements. Whether as a volunteer, supporter, sponsor, or well-wisher, your contribution can inspire young minds and help create a brighter future for our community.
+                <p className="text-[13px] italic text-orange-600">
+  संघर्ष को सम्मान, सपनों को उड़ान </p>
+  <p className="pt-[30px] -mt-[10px] text-[15px] font-bold text-slate-900">
+  Join us today and help us honor talent, inspire dreams, and build a stronger future together
+</p>
               </p>
+             
+             
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/donate">
                   <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white font-semibold w-full sm:w-auto">Donate</Button>

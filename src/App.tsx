@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import AuthCallback from './pages/AuthCallback';
 import AuthError from './pages/AuthError';
 import { adminRoutes } from './admin/routes';
+import ScrollToTop from './components/ScrollToTop';
 // MODULE_IMPORTS_START
 // MODULE_IMPORTS_END
 
@@ -61,6 +62,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
+        <ScrollToTop />
         <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>

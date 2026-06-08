@@ -41,6 +41,7 @@ const defaultSlides: Slide[] = [
 export default function HeroSliderPage() {
   const [slides, setSlides] = useState<Slide[]>(defaultSlides);
   const [isSaving, setIsSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -85,6 +86,36 @@ export default function HeroSliderPage() {
           : slide
       )
     );
+  };
+
+  const handleImageUpload = async (index: number, file: File | null) => {
+    if (!file) return;
+
+    setUploadingImage((current) => ({ ...current, [index]: true }));
+
+    try {
+      const data = new FormData();
+      data.append('image', file);
+      data.append('title', slides[index]?.tag || `Hero slide ${index + 1}`);
+      data.append('description', slides[index]?.sub || 'Hero slide image upload');
+      data.append('category', 'hero');
+
+      const response = await adminApi.uploadImage(data);
+      const imageUrl = response.data?.data?.imageUrl;
+
+      if (imageUrl) {
+        setSlides((current) =>
+          current.map((slide, idx) =>
+            idx === index ? { ...slide, image: imageUrl } : slide
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Image upload failed', error);
+      toast.error('Unable to upload hero slide image.');
+    } finally {
+      setUploadingImage((current) => ({ ...current, [index]: false }));
+    }
   };
 
   const handleAddSlide = () => {
@@ -165,20 +196,23 @@ export default function HeroSliderPage() {
               </div>
 
               <div className="space-y-4">
-                {/* Image URL */}
+                {/* Image Upload */}
                 <div>
                   <Label htmlFor={`image-${index}`} className="text-sm font-medium text-slate-700">
-                    Image URL *
+                    Upload Slide Image *
                   </Label>
-                  <Input
+                  <input
                     id={`image-${index}`}
-                    value={slide.image}
-                    onChange={(e) => handleSlideChange(index, 'image', e.target.value)}
-                    placeholder="https://..."
-                    className="mt-1"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(index, e.target.files?.[0] || null)}
+                    className="mt-1 block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
                   />
+                  {uploadingImage[index] && (
+                    <p className="mt-2 text-sm text-slate-500">Uploading image...</p>
+                  )}
                   {slide.image && (
-                    <div className="mt-2 rounded-lg overflow-hidden w-full h-40">
+                    <div className="mt-4 rounded-lg overflow-hidden w-full h-40">
                       <img
                         src={slide.image}
                         alt={`Slide ${index + 1}`}

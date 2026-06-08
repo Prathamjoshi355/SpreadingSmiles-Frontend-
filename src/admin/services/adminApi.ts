@@ -102,6 +102,9 @@ export const adminApi = {
   getAllVolunteers: () =>
     axios.get(`${API_BASE_URL}/volunteer`, { headers: getAuthHeader() }),
 
+  getFeaturedVolunteers: () =>
+    axios.get(`${API_BASE_URL}/volunteer/featured`),
+
   getVolunteerStats: () =>
     axios.get(`${API_BASE_URL}/volunteer/stats`, { headers: getAuthHeader() }),
 

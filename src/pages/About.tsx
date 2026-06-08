@@ -371,6 +371,53 @@ export default function About() {
           transition: width 0.35s ease;
         }
         .ss-card:hover .ss-card-line { width: 100%; }
+
+        /* ── Mobile Responsive ── */
+        @media (max-width: 640px) {
+          .ss-hero {
+            padding: 28px 18px 22px;
+          }
+          .ss-hero h1 {
+            font-size: 28px;
+          }
+
+          .ss-founder {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 24px 18px;
+          }
+          .ss-founder-img {
+            max-height: 280px;
+          }
+          .ss-founder h2 {
+            font-size: 26px;
+          }
+
+          .ss-vol-header {
+            padding: 0 18px 14px;
+          }
+          .ss-vol-header h3 {
+            font-size: 18px;
+          }
+          .vol-slide {
+            width: 72px;
+            height: 72px;
+          }
+
+          .ss-story {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 24px 18px;
+          }
+
+          .ss-cards {
+            padding: 20px 18px 24px;
+          }
+          .ss-cards-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+        }
       `}</style>
     </Layout>
   );

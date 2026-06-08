@@ -71,7 +71,7 @@ export default function About() {
           <div>
             <img
               className="ss-founder-img"
-              src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004401/post5_tcrmsu.jpg"
+              src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1780145606/IMG_0421_jlfbln.jpg"
               alt="Rahul Lodwal"
             />
           </div>

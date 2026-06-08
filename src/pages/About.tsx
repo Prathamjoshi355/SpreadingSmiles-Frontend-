@@ -170,19 +170,19 @@ export default function About() {
         <div className="ss-cards">
           <div className="ss-cards-grid">
             <div className="ss-card">
-              <div className="ss-card-icon"><i className="ti ti-target" aria-hidden="true" /></div>
+              <div className="ss-card-icon"><Target size={20} className="ss-card-svg" aria-hidden="true" /></div>
               <h4>Our Mission</h4>
               <p>To bring real change through small consistent efforts in healthcare, education, and community welfare.</p>
               <div className="ss-card-line" />
             </div>
             <div className="ss-card">
-              <div className="ss-card-icon"><i className="ti ti-users" aria-hidden="true" /></div>
+              <div className="ss-card-icon"><Users size={20} className="ss-card-svg" aria-hidden="true" /></div>
               <h4>Our People</h4>
               <p>Educated youth of Indore coming together to serve their city with hands-on action and genuine care.</p>
               <div className="ss-card-line" />
             </div>
             <div className="ss-card">
-              <div className="ss-card-icon"><i className="ti ti-sparkles" aria-hidden="true" /></div>
+              <div className="ss-card-icon"><Sparkles size={20} className="ss-card-svg" aria-hidden="true" /></div>
               <h4>Our Approach</h4>
               <p>Hands-on, honest, and community-first. We show up, we act, and every rupee reaches the right place.</p>
               <div className="ss-card-line" />
@@ -238,7 +238,7 @@ export default function About() {
         .ss-founder-img {
           border-radius: 18px;
           width: 100%;
-          height: 320px;
+          height: full/200px;
           object-fit: cover;
           border: 2px solid #ffe0c8;
           display: block;
@@ -326,7 +326,7 @@ export default function About() {
           border: 0.5px solid #f0e0d6;
         }
         .ss-story-img {
-          width: 100%; height: 240px; object-fit: cover;
+          width: 100%; height: full; object-fit: cover;
           border-radius: 16px;
           border: 1.5px solid #ffe0c8;
           display: block;
@@ -361,8 +361,8 @@ export default function About() {
           transition: background 0.3s;
         }
         .ss-card:hover .ss-card-icon { background: #c95c1a; }
-        .ss-card-icon i { font-size: 20px; color: #c95c1a; transition: color 0.3s; }
-        .ss-card:hover .ss-card-icon i { color: #fff; }
+        .ss-card-icon svg, .ss-card-icon .ss-card-svg { width: 20px; height: 20px; color: #c95c1a; transition: color 0.3s; }
+        .ss-card:hover .ss-card-icon svg, .ss-card:hover .ss-card-icon .ss-card-svg { color: #fff; }
         .ss-card h4 { font-weight: 500; font-size: 14px; margin: 0 0 6px; color: #1a1a1a; }
         .ss-card p { font-size: 12.5px; line-height: 1.65; color: #888; margin: 0; }
         .ss-card-line {

@@ -10,6 +10,7 @@ type Blog = {
   title: string;
   slug: string;
   domains?: BlogDomain[];
+  date?: string;
   createdAt: string;
 };
 
@@ -111,9 +112,9 @@ export default function BlogsPage() {
       )
     },
     {
-      key: 'createdAt',
-      label: 'Created',
-      render: (date) => new Date(date).toLocaleDateString()
+      key: 'date',
+      label: 'Published',
+      render: (_value, blog: Blog) => new Date(blog.date || blog.createdAt).toLocaleDateString()
     }
   ];
 

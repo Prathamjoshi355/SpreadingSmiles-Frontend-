@@ -7,6 +7,7 @@ export default function AddBlogPage() {
   const [title, setTitle] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [author, setAuthor] = useState('NGO');
+  const [date, setDate] = useState('');
   const [content, setContent] = useState('');
   const [domains, setDomains] = useState<BlogDomain[]>([]);
   const [image, setImage] = useState<File | null>(null);
@@ -27,6 +28,7 @@ export default function AddBlogPage() {
     data.append('title', title);
     data.append('excerpt', excerpt);
     data.append('author', author);
+    if (date) data.append('date', date);
     data.append('content', content);
     data.append('domains', JSON.stringify(domains));
     data.append('image', image);
@@ -80,6 +82,17 @@ export default function AddBlogPage() {
             maxLength={500}
             rows={3}
           />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">Published Date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+          />
+          <p className="mt-2 text-sm text-gray-500">Select the blog publish date for date-based sorting.</p>
         </div>
 
         <div className="mb-4">

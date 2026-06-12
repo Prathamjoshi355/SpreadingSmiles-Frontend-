@@ -192,8 +192,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
   return (
     <section
-      className="relative overflow-hidden select-none"
-      style={{ background: "#0c1220", minHeight: "600px" }}
+      className="relative overflow-hidden select-none bg-[#0c1220] min-h-[48vh] md:min-h-[600px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -218,10 +217,10 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       ))}
 
       {/* Split layout */}
-      <div className="relative w-full flex items-center" style={{ zIndex: 10, minHeight: "600px" }}>
+      <div className="relative w-full flex items-center z-10 min-h-[48vh] md:min-h-[600px]">
 
         {/* LEFT — text */}
-        <div style={{ flex: "0 0 55%", padding: "72px 48px 72px 64px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div className="w-full md:w-7/12 p-8 md:p-16 flex flex-col justify-center">
 
           <div
             key={`tag-${current}`}
@@ -238,27 +237,12 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             {slide.tag}
           </div>
 
-          <h1
-            key={`h-${current}`}
-            className="hero-animate-up"
-            style={{
-              fontSize: "clamp(2rem, 3.8vw, 3.4rem)", fontWeight: 800,
-              color: "#ffffff", lineHeight: 1.12, margin: "0 0 14px",
-              animationDelay: "80ms",
-            }}
-          >
+          <h1 key={`h-${current}`} className="hero-animate-up text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-3" style={{ animationDelay: "80ms" }}>
             {slide.headline}<br />
-            <span style={{ color: "#fb923c" }}>{slide.headlineAccent}</span>
+            <span className="text-orange-400">{slide.headlineAccent}</span>
           </h1>
 
-          <p
-            key={`sub-${current}`}
-            className="hero-animate-up"
-            style={{
-              fontSize: "1.05rem", color: "#94a3b8", lineHeight: 1.75,
-              margin: "0 0 8px", maxWidth: "460px", animationDelay: "160ms",
-            }}
-          >
+          <p key={`sub-${current}`} className="hero-animate-up text-base md:text-lg text-slate-300 leading-relaxed max-w-xl mb-2" style={{ animationDelay: "160ms" }}>
             {slide.sub}
           </p>
 
@@ -273,11 +257,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             {slide.hindi}
           </p>
 
-          <div
-            key={`cta-${current}`}
-            className="hero-animate-up"
-            style={{ display: "flex", gap: "12px", flexWrap: "wrap", animationDelay: "310ms" }}
-          >
+          <div key={`cta-${current}`} className="hero-animate-up flex flex-wrap gap-3" style={{ animationDelay: "310ms" }}>
             <Link to={slide.primaryCta.to}>
               <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white font-semibold">
                 {slide.primaryCta.label}
@@ -292,14 +272,10 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           </div>
 
           {/* Counter + dots */}
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", marginTop: "40px" }}>
-            <span style={{ color: "#fb923c", fontWeight: 700, fontSize: "1rem" }}>
-              {String(current + 1).padStart(2, "0")}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem" }}>
-              / {String(total).padStart(2, "0")}
-            </span>
-            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div className="flex items-center gap-4 mt-8">
+            <span className="text-orange-400 font-bold text-base">{String(current + 1).padStart(2, "0")}</span>
+            <span className="text-white/40 text-sm">/ {String(total).padStart(2, "0")}</span>
+            <div className="flex gap-2 items-center">
               {slides.map((_, i) => (
                 <button
                   key={i}
@@ -318,10 +294,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         </div>
 
         {/* RIGHT — animated image card */}
-        <div
-          className="hidden md:flex"
-          style={{ flex: "0 0 45%", height: "600px", position: "relative", alignItems: "center", justifyContent: "center", padding: "40px 48px 40px 16px" }}
-        >
+        <div className="hidden md:flex md:w-5/12 md:h-[600px] relative items-center justify-center p-10">
           {slides.map((s, i) => (
             <div
               key={`card-${i}`}
@@ -359,11 +332,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               </div>
             </div>
           ))}
-          <div style={{
-            position: "absolute", width: "75%", height: "80%",
-            borderRadius: "24px", border: "1px solid rgba(251,146,60,0.10)",
-            transform: "translate(12px, 12px)", pointerEvents: "none",
-          }} />
+          <div className="absolute" style={{ width: 'full', height: 'full', borderRadius: 24, border: '1px solid rgba(251,146,60,0.10)', transform: 'translate(12px,12px)', pointerEvents: 'none' }} />
         </div>
       </div>
 
@@ -373,12 +342,7 @@ function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           key={side}
           onClick={fn}
           aria-label={`${label} slide`}
-          style={{
-            position: "absolute", [side]: "16px", top: "50%", transform: "translateY(-50%)",
-            width: "40px", height: "40px", borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)",
-            color: "#fff", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 20,
-          }}
+          className={`absolute ${side === 'left' ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-white/20 bg-white/6 text-white flex items-center justify-center z-20`}
         >
           <Icon style={{ width: 18, height: 18 }} />
         </button>

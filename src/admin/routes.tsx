@@ -9,6 +9,7 @@ import Volunteers from './pages/Volunteers';
 import Gallery from './pages/Gallery';
 import Analytics from './pages/Analytics';
 import Activities from './pages/Activities';
+import EditBlog from './pages/EditBlog';
 import ImpactStats from './pages/ImpactStats';
 import HeroSlider from './pages/HeroSlider';
 import TickerItems from './pages/TickerItems';
@@ -42,6 +43,10 @@ export const adminRoutes: RouteObject[] = [
       {
         path: 'blogs/add',
         element: <AddBlog />
+      },
+      {
+        path: 'blogs/edit/:slug',
+        element: <EditBlog />
       },
       {
         path: 'gallery',

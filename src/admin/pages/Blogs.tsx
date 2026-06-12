@@ -115,6 +115,18 @@ export default function BlogsPage() {
       key: 'date',
       label: 'Published',
       render: (_value, blog: Blog) => new Date(blog.date || blog.createdAt).toLocaleDateString()
+    },
+    {
+      key: 'edit',
+      label: 'Edit',
+      render: (_value, blog: Blog) => (
+        <Link
+          to={`/admin/blogs/edit/${blog.slug}`}
+          className="text-sm text-blue-600 hover:text-blue-800"
+        >
+          Edit
+        </Link>
+      )
     }
   ];
 

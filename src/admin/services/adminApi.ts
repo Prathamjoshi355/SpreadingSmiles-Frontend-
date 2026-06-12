@@ -55,7 +55,14 @@ export const adminApi = {
     axios.post(`${API_BASE_URL}/gallery`, data, { headers: getAuthHeader() }),
 
   getAllImages: () =>
-    axios.get(`${API_BASE_URL}/gallery`),
+    axios.get(`${API_BASE_URL}/gallery/admin`, { headers: getAuthHeader() }),
+
+  updateImageVisibility: (id, visible) =>
+    axios.put(
+      `${API_BASE_URL}/gallery/${id}`,
+      { visible },
+      { headers: getAuthHeader() }
+    ),
 
   deleteImage: (id) =>
     axios.delete(`${API_BASE_URL}/gallery/${id}`, { headers: getAuthHeader() }),

@@ -57,6 +57,9 @@ export const adminApi = {
   uploadImage: (data) =>
     axios.post(`${API_BASE_URL}/gallery`, data, { headers: getAuthHeader() }),
 
+  updateImage: (id, data) =>
+    axios.put(`${API_BASE_URL}/gallery/${id}`, data, { headers: getAuthHeader() }),
+
   getAllImages: () =>
     axios.get(`${API_BASE_URL}/gallery`),
 

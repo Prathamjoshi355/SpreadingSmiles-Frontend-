@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarDays, MapPin, Users } from "lucide-react";
@@ -74,22 +75,20 @@ export default function Events() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {events.map((event) => (
-                <Card
-                  key={event._id}
-                  className="border-orange-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
-                >
-                  {event.images?.[0] && (
-                    <div className="bg-slate-100">
-                      <img
-                        src={event.images[0]}
-                        alt={event.title}
-                        loading="lazy"
-                        className="w-full h-auto block"
-                      />
-                    </div>
-                  )}
+                <Link key={event._id} to={`/events/${event._id}`} className="block group">
+                  <Card className="border-orange-100 overflow-hidden hover:shadow-lg transition-shadow duration-300 group-hover:-translate-y-1">
+                    {event.images?.[0] && (
+                      <div className="bg-slate-100">
+                        <img
+                          src={event.images[0]}
+                          alt={event.title}
+                          loading="lazy"
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    )}
 
-                  <CardContent className="p-6">
+                    <CardContent className="p-6">
                     <div className="text-xs font-semibold text-orange-600 uppercase mb-2">
                       {event.category}
                     </div>
@@ -118,19 +117,20 @@ export default function Events() {
                       )}
 
                       {typeof event.volunteers === "number" &&
-                        event.volunteers > 0 && (
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-orange-600" />
-                            <span>
-                              {event.volunteers} volunteer
-                              {event.volunteers > 1 ? "s" : ""}
-                            </span>
-                          </div>
-                        )}
+                      event.volunteers > 0 && (
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-orange-600" />
+                          <span>
+                            {event.volunteers} volunteer
+                            {event.volunteers > 1 ? "s" : ""}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+              </Link>
+            ))}
             </div>
           )}
         </div>

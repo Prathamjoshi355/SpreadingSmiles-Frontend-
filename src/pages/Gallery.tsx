@@ -55,12 +55,19 @@ export default function Gallery() {
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
             {images.map((img, i) => (
-              <div key={i} className="group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow aspect-[4/3]">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div key={i} className="group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                <div className="aspect-[4/3] overflow-hidden bg-slate-100">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                {img.date && (
+                  <div className="p-4 bg-white border-t border-slate-200">
+                    <p className="text-sm text-slate-500">{new Date(img.date).toLocaleDateString()}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>

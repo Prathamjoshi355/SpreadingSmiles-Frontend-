@@ -11,6 +11,7 @@ import Donate from './pages/Donate';
 import Volunteer from './pages/Volunteer';
 import Gallery from './pages/Gallery';
 import Events from './pages/Events';
+import EventDetail from './pages/EventDetail';
 import Contact from './pages/Contact';
 import AuthCallback from './pages/AuthCallback';
 import AuthError from './pages/AuthError';
@@ -44,6 +45,7 @@ const AppRoutes = () => (
     <Route path="/donate" element={<Donate />} />
     <Route path="/volunteer" element={<Volunteer />} />
     <Route path="/events" element={<Events />} />
+    <Route path="/events/:id" element={<EventDetail />} />
     <Route path="/gallery" element={<Gallery />} />
     <Route path="/contact" element={<Contact />} />
     <Route path="/blog/*" element={<BlogRoutes />} />

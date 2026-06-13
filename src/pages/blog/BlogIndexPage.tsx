@@ -15,7 +15,6 @@ type Blog = {
   coverImage: string;
   author?: string;
   domains?: BlogDomain[];
-  date?: string;
   createdAt: string;
 };
 
@@ -115,7 +114,7 @@ export default function BlogIndexPage() {
                     <div className="flex flex-wrap gap-3 text-xs text-slate-500 mb-3">
                       <span className="flex items-center gap-1">
                         <CalendarDays className="w-3.5 h-3.5 text-orange-600" />
-                        {new Date(blog.date || blog.createdAt).toLocaleDateString()}
+                        {new Date(blog.createdAt).toLocaleDateString()}
                       </span>
                       <span className="flex items-center gap-1">
                         <User className="w-3.5 h-3.5 text-orange-600" />

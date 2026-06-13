@@ -10,7 +10,6 @@ type Blog = {
   content: string;
   coverImage: string;
   author?: string;
-  date?: string;
   createdAt: string;
 };
 
@@ -72,7 +71,7 @@ export default function BlogPostPage() {
             <div className="flex flex-wrap gap-4 text-sm text-slate-600">
               <span className="flex items-center gap-2">
                 <CalendarDays className="w-4 h-4 text-orange-600" />
-                {new Date(blog.date || blog.createdAt).toLocaleDateString()}
+                {new Date(blog.createdAt).toLocaleDateString()}
               </span>
               <span className="flex items-center gap-2">
                 <User className="w-4 h-4 text-orange-600" />

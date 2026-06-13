@@ -4,12 +4,12 @@ import AdminSignup from './pages/AdminSignup';
 import Dashboard from './pages/Dashboard';
 import Blogs from './pages/Blogs';
 import AddBlog from './pages/AddBlog';
+import EditBlog from './pages/EditBlog';
 import Donations from './pages/Donations';
 import Volunteers from './pages/Volunteers';
 import Gallery from './pages/Gallery';
 import Analytics from './pages/Analytics';
 import Activities from './pages/Activities';
-import EditBlog from './pages/EditBlog';
 import ImpactStats from './pages/ImpactStats';
 import HeroSlider from './pages/HeroSlider';
 import TickerItems from './pages/TickerItems';
@@ -45,7 +45,7 @@ export const adminRoutes: RouteObject[] = [
         element: <AddBlog />
       },
       {
-        path: 'blogs/edit/:slug',
+        path: 'blogs/edit/:id',
         element: <EditBlog />
       },
       {

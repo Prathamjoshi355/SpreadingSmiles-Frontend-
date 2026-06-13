@@ -28,6 +28,9 @@ export const adminApi = {
   getBlogBySlug: (slug) =>
     axios.get(`${API_BASE_URL}/blog/${slug}`),
 
+  getBlogById: (id) =>
+    axios.get(`${API_BASE_URL}/blog/id/${id}`),
+
   updateBlog: (id, data) =>
     axios.put(`${API_BASE_URL}/blog/${id}`, data, { headers: getAuthHeader() }),
 
@@ -55,14 +58,7 @@ export const adminApi = {
     axios.post(`${API_BASE_URL}/gallery`, data, { headers: getAuthHeader() }),
 
   getAllImages: () =>
-    axios.get(`${API_BASE_URL}/gallery/admin`, { headers: getAuthHeader() }),
-
-  updateImageVisibility: (id, visible) =>
-    axios.put(
-      `${API_BASE_URL}/gallery/${id}`,
-      { visible },
-      { headers: getAuthHeader() }
-    ),
+    axios.get(`${API_BASE_URL}/gallery`),
 
   deleteImage: (id) =>
     axios.delete(`${API_BASE_URL}/gallery/${id}`, { headers: getAuthHeader() }),

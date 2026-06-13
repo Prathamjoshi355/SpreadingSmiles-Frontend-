@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
 
 const categories = ['event', 'team', 'activity', 'impact', 'other'];
@@ -70,15 +69,6 @@ export default function GalleryPage() {
     }
   };
 
-  const handleToggleVisibility = async (id: string, visible: boolean) => {
-    try {
-      await adminApi.updateImageVisibility(id, !visible);
-      await fetchImages();
-    } catch (error) {
-      console.error('Error updating visibility:', error);
-    }
-  };
-
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Gallery</h1>
@@ -141,31 +131,15 @@ export default function GalleryPage() {
               <div className="p-4">
                 <div className="flex justify-between items-start gap-3">
                   <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-gray-800">{item.title || 'Untitled'}</h3>
-                      {!item.visible && (
-                        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
-                          Hidden
-                        </span>
-                      )}
-                    </div>
+                    <h3 className="font-semibold text-gray-800">{item.title || 'Untitled'}</h3>
                     <p className="text-sm text-gray-500 capitalize">{item.category}</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => handleToggleVisibility(item._id, item.visible)}
-                      className="text-gray-600 hover:text-gray-900"
-                      title={item.visible ? 'Hide image' : 'Show image'}
-                    >
-                      {item.visible ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="text-red-600 hover:text-red-700 text-sm font-semibold"
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="text-red-600 hover:text-red-700 text-sm font-semibold"
+                  >
+                    Delete
+                  </button>
                 </div>
                 {item.description && <p className="text-sm text-gray-600 mt-2">{item.description}</p>}
               </div>

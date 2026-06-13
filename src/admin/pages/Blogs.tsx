@@ -78,6 +78,11 @@ export default function BlogsPage() {
     { key: 'title', label: 'Title' },
     { key: 'slug', label: 'Slug' },
     {
+      key: 'date',
+      label: 'Publish Date',
+      render: (date: string) => (date ? new Date(date).toLocaleDateString() : '-')
+    },
+    {
       key: 'domains',
       label: 'Domains',
       render: (_domains: BlogDomain[] = [], blog: Blog) => (
@@ -112,17 +117,17 @@ export default function BlogsPage() {
       )
     },
     {
-      key: 'date',
-      label: 'Published',
-      render: (_value, blog: Blog) => new Date(blog.date || blog.createdAt).toLocaleDateString()
+      key: 'createdAt',
+      label: 'Created',
+      render: (date) => new Date(date).toLocaleDateString()
     },
     {
       key: 'edit',
       label: 'Edit',
-      render: (_value, blog: Blog) => (
+      render: (_value: unknown, blog: Blog) => (
         <Link
-          to={`/admin/blogs/edit/${blog.slug}`}
-          className="text-sm text-blue-600 hover:text-blue-800"
+          to={`/admin/blogs/edit/${blog._id}`}
+          className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
         >
           Edit
         </Link>

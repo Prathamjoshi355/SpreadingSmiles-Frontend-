@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { adminApi } from '../services/adminApi';
 import { blogDomains, type BlogDomain } from '@/lib/blog-domains';
@@ -7,15 +7,24 @@ export default function AddBlogPage() {
   const [title, setTitle] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [author, setAuthor] = useState('NGO');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [content, setContent] = useState('');
   const [domains, setDomains] = useState<BlogDomain[]>([]);
   const [image, setImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -28,7 +37,7 @@ export default function AddBlogPage() {
     data.append('title', title);
     data.append('excerpt', excerpt);
     data.append('author', author);
-    if (date) data.append('date', date);
+    data.append('date', date);
     data.append('content', content);
     data.append('domains', JSON.stringify(domains));
     data.append('image', image);
@@ -49,7 +58,7 @@ export default function AddBlogPage() {
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Add Blog</h1>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 max-w-4xl">
-        <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div className="grid md:grid-cols-3 gap-4 mb-4">
           <div>
             <label className="block text-gray-700 font-semibold mb-2">Title</label>
             <input
@@ -70,6 +79,17 @@ export default function AddBlogPage() {
               placeholder="Author name"
             />
           </div>
+
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Publish Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+              required
+            />
+          </div>
         </div>
 
         <div className="mb-4">
@@ -82,17 +102,6 @@ export default function AddBlogPage() {
             maxLength={500}
             rows={3}
           />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Published Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
-          />
-          <p className="mt-2 text-sm text-gray-500">Select the blog publish date for date-based sorting.</p>
         </div>
 
         <div className="mb-4">
@@ -129,13 +138,37 @@ export default function AddBlogPage() {
 
         <div className="mb-6">
           <label className="block text-gray-700 font-semibold mb-2">Cover Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files?.[0] || null)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-            required
-          />
+          <div className="grid md:grid-cols-[auto_1fr] gap-4 items-start">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                setImage(file);
+                if (file) {
+                  setPreviewUrl(URL.createObjectURL(file));
+                } else {
+                  setPreviewUrl(null);
+                }
+              }}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              required
+            />
+
+            {previewUrl && (
+              <div className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg bg-slate-50">
+                <img
+                  src={previewUrl}
+                  alt="Upload preview"
+                  className="w-24 h-24 rounded-lg object-cover border border-gray-300"
+                />
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">Image preview</div>
+                  <p className="text-xs text-slate-500">This image will appear next to the title.</p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {error && <div className="mb-6 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}

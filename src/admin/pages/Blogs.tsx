@@ -9,6 +9,7 @@ type Blog = {
   _id: string;
   title: string;
   slug: string;
+  coverImage?: string;
   domains?: BlogDomain[];
   date?: string;
   createdAt: string;
@@ -76,7 +77,17 @@ export default function BlogsPage() {
 
   const columns = [
     { key: 'title', label: 'Title' },
-    { key: 'slug', label: 'Slug' },
+    {
+      key: 'coverImage',
+      label: 'Image Preview',
+      render: (coverImage: string) => (
+        <img
+          src={coverImage}
+          alt="Blog cover"
+          className="w-16 h-16 rounded object-cover border border-gray-300"
+        />
+      )
+    },
     {
       key: 'date',
       label: 'Publish Date',

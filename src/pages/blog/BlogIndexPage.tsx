@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { CalendarDays, User } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { apiUrl } from '@/lib/api-url';
 import { blogDomains, type BlogDomain } from '@/lib/blog-domains';
 
@@ -15,7 +15,8 @@ type Blog = {
   coverImage: string;
   author?: string;
   domains?: BlogDomain[];
-  createdAt: string;
+  date?: string;
+  createdAt?: string;
 };
 
 export default function BlogIndexPage() {
@@ -98,8 +99,8 @@ export default function BlogIndexPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {blogs.map((blog) => (
                 <Card key={blog._id} className="border-orange-100 overflow-hidden hover:shadow-lg transition-shadow">
-                  <Link to={`/blog/${blog.slug}`} className="block aspect-[4/3] bg-slate-100">
-                    <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
+                  <Link to={`/blog/${blog.slug}`} className="block bg-slate-100">
+                    <img src={blog.coverImage} alt={blog.title} className="w-full h-auto object-contain" />
                   </Link>
                   <CardContent className="p-6">
                     {blog.domains?.length > 0 && (
@@ -114,11 +115,7 @@ export default function BlogIndexPage() {
                     <div className="flex flex-wrap gap-3 text-xs text-slate-500 mb-3">
                       <span className="flex items-center gap-1">
                         <CalendarDays className="w-3.5 h-3.5 text-orange-600" />
-                        {new Date(blog.createdAt).toLocaleDateString()}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-orange-600" />
-                        {blog.author || 'NGO'}
+                        {new Date(blog.date || blog.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                     <h2 className="text-xl font-bold text-slate-900 mb-3">

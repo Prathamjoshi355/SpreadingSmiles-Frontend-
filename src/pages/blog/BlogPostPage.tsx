@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
-import { CalendarDays, User } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { apiUrl } from '@/lib/api-url';
 
 type Blog = {
@@ -10,7 +10,8 @@ type Blog = {
   content: string;
   coverImage: string;
   author?: string;
-  createdAt: string;
+  date?: string;
+  createdAt?: string;
 };
 
 export default function BlogPostPage() {
@@ -71,11 +72,7 @@ export default function BlogPostPage() {
             <div className="flex flex-wrap gap-4 text-sm text-slate-600">
               <span className="flex items-center gap-2">
                 <CalendarDays className="w-4 h-4 text-orange-600" />
-                {new Date(blog.createdAt).toLocaleDateString()}
-              </span>
-              <span className="flex items-center gap-2">
-                <User className="w-4 h-4 text-orange-600" />
-                {blog.author || 'NGO'}
+                {new Date(blog.date || blog.createdAt).toLocaleDateString()}
               </span>
             </div>
           </div>
@@ -83,7 +80,7 @@ export default function BlogPostPage() {
 
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-4xl">
-            <img src={blog.coverImage} alt={blog.title} className="w-full rounded-xl mb-8 object-cover max-h-[520px]" />
+            <img src={blog.coverImage} alt={blog.title} className="w-full rounded-xl mb-8 object-contain" />
             {blog.excerpt && <p className="text-xl text-slate-600 leading-relaxed mb-8">{blog.excerpt}</p>}
             <div className="whitespace-pre-line text-slate-700 leading-8 text-lg">
               {blog.content}

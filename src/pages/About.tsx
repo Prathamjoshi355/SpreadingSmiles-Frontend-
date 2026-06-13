@@ -122,11 +122,13 @@ export default function About() {
                   {sliderVolunteers.map((v, i) => (
                     <div className="vol-slide" key={`a-${v._id}-${i}`}>
                       <img src={v.photoUrl} alt={v.name} />
+                      <p className="vol-name">{v.name}</p>
                     </div>
                   ))}
                   {sliderVolunteers.map((v, i) => (
                     <div className="vol-slide" key={`b-${v._id}-${i}`}>
                       <img src={v.photoUrl} alt={v.name} />
+                      <p className="vol-name">{v.name}</p>
                     </div>
                   ))}
                 </>
@@ -138,6 +140,7 @@ export default function About() {
                         src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1778004401/post5_tcrmsu.jpg"
                         alt="Volunteer"
                       />
+                      <p className="vol-name">Volunteer</p>
                     </div>
                   ))}
                 </>
@@ -303,12 +306,19 @@ export default function About() {
           animation: vol-scroll 24s linear infinite;
         }
         .vol-slide {
-          width: 96px; height: 96px; flex: 0 0 auto;
+          width: 96px; flex: 0 0 auto;
           border-radius: 14px; overflow: hidden;
           border: 1px solid #ffe0c8;
           background: #fff;
+          display: flex; flex-direction: column;
         }
-        .vol-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .vol-slide img { width: 100%; height: 96px; object-fit: cover; display: block; }
+        .vol-name {
+          font-size: 11px; font-weight: 500; color: #666;
+          padding: 6px 4px; text-align: center;
+          margin: 0; word-wrap: break-word;
+          line-height: 1.3;
+        }
         @keyframes vol-scroll {
           from { transform: translateX(0); }
           to { transform: translateX(calc(-50% - 7px)); }

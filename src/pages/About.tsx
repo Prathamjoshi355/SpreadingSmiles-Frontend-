@@ -411,7 +411,14 @@ export default function About() {
           }
           .vol-slide {
             width: 72px;
+            height: auto;
+          }
+          .vol-slide img {
             height: 72px;
+          }
+          .vol-name {
+            font-size: 10px;
+            padding: 8px 4px 6px;
           }
 
           .ss-story {

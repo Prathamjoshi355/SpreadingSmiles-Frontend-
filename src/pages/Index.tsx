@@ -23,7 +23,7 @@ interface TickerItem {
 }
 
 const defaultTickerItems: TickerItem[] = [
-  { text: 'Helpline: +91 98765 43210' },
+  { text: 'Helpline: +91 72239 98881' },
   { text: 'spreadsingsmiles@gmail.com' },
   { text: 'Indore, Madhya Pradesh' },
 ];

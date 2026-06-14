@@ -89,7 +89,7 @@ export default function About() {
             </p>
             <div className="ss-socials">
               <a
-                href="https://instagram.com/"
+                href="https://www.instagram.com/spreadingsmiles_indore/"
                 target="_blank"
                 rel="noreferrer"
                 className="ss-social-btn"

@@ -23,9 +23,9 @@ export default function Contact() {
 
   const infos = [
     { icon: MapPin, label: "Location", value: "Indore, Madhya Pradesh" },
-    { icon: Phone, label: "Phone", value: "+91 98765 43210" },
-    { icon: Mail, label: "Email", value: "hello@spreadingsmiles.in" },
-    { icon: Instagram, label: "Instagram", value: "@spreadingsmiles.indore" },
+    { icon: Phone, label: "Phone", value: "+91 72239 98881" },
+    { icon: Mail, label: "Email", value: "spreadsingsmiles@gmail.com" },
+    { icon: Instagram, label: "Instagram", value: "@spreadingsmiles_indore" },
   ];
 
   return (

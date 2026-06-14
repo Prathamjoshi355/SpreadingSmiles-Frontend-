@@ -17,7 +17,7 @@ export default function Footer() {
               Indore Educated Youth Organization dedicated to making a difference in our community.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.instagram.com/spreadingsmiles_indore?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="text-gray-400 hover:text-orange-400 transition">
+              <a href="https://www.instagram.com/spreadingsmiles_indore/" className="text-gray-400 hover:text-orange-400 transition">
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="#" className="text-gray-400 hover:text-orange-400 transition">
